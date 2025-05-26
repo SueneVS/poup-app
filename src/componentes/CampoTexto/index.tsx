@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const CampoTexto = styled.input`
+const TextInput = styled.input`
   width: 95%;
   padding: var(--padding-xs);
   font-size: var(--fonte-md);
@@ -15,4 +15,4 @@ const CampoTexto = styled.input`
   }
 `;
 
-export default CampoTexto;
+export default TextInput;

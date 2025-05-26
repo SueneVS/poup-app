@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import MoneyIcon from "../Icones/MoneyIcon";
 import Transaction from "../Transaction";
 import { Cartao, CartaoCabecalho, CartaoCorpo } from "../Cartao";
-import Botao from "../Botao";
+import Botao from "../Button";
 import styled from "styled-components";
 import Modal, { ModalHandle } from "../Modal";
 import { Form } from "react-router";

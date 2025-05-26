@@ -2,7 +2,7 @@ import BalancoFinanceiro from "../../componentes/BalancoFinanceiro";
 import BarraLateral from "../../componentes/BarraLateral";
 import BarraPesquisa from "../../componentes/BarraPesquisa";
 import OrcamentoDiario from "../../componentes/OrcamentoDiario";
-import SaudacaoUsuario from "../../componentes/SaudacaoUsuario";
+import UserGreeting from "../../componentes/UserGreeting";
 import Transacoes from "../../componentes/Transacoes";
 import {
   Container,
@@ -16,7 +16,7 @@ function Home() {
     <Container>
       <BarraLateral />
       <BarraPesquisa />
-      <SaudacaoUsuario />
+      <UserGreeting />
       <Orcamento>
         <OrcamentoDiario />
       </Orcamento>
