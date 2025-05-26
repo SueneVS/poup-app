@@ -1,6 +1,6 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import { ButtonGroup, CloseButton, ModalContainer, ModalHeader } from "./style";
-import Botao from "../Botao";
+import Botao from "../Button";
 
 interface ModalProps {
   icon: React.ReactNode;
