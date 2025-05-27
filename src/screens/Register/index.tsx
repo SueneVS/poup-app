@@ -12,9 +12,9 @@ import { Form, useNavigate } from "react-router";
 import Fieldset from "../../componentes/Fieldset/index.js";
 import Label from "../../componentes/Label/index.js";
 import { IUser } from "../../Types/index.js";
-import { createUser } from "../../api/index.js";
 import TextInput from "../../componentes/CampoTexto/index.js";
 import Button from "../../componentes/Button/index.js";
+import { useAppContext } from "../../context/AppContext.js";
 
 const Register = () => {
   const [form, setForm] = useState<Omit<IUser, "id">>({
@@ -28,14 +28,11 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const { addUser } = useAppContext();
+
   const handleFormSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    try {
-      const newUser = await createUser(form);
-      console.log(newUser);
-    } catch (err) {
-      console.log(err);
-    }
+    addUser(form);
     navigate("/home");
   };
 

@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { getUser } from "../../api";
-import { useEffect, useState } from "react";
-import { IUser } from "../../Types";
+import { useAppContext } from "../../context/AppContext";
 
 export const StyledUser = styled.div`
   grid-area: usuario;
@@ -17,16 +15,7 @@ export const StyledUser = styled.div`
 `;
 
 const UserGreeting = () => {
-  const [user, setUser] = useState<IUser | null>(null);
-
-  const findUser = async () => {
-    const response = await getUser();
-    setUser(response[0]);
-  };
-
-  useEffect(() => {
-    findUser();
-  }, []);
+  const { user } = useAppContext();
   return (
     <StyledUser>
       <h1>Olá, {user?.name}</h1>
