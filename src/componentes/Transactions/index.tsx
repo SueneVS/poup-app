@@ -2,7 +2,7 @@ import { useRef, useState } from "react";
 import MoneyIcon from "../Icones/MoneyIcon";
 import Transaction from "../Transaction";
 import { Cartao, CartaoCabecalho, CartaoCorpo } from "../Cartao";
-import Botao from "../Button";
+import Button from "../Button";
 import styled from "styled-components";
 import Modal, { ModalHandle } from "../Modal";
 import { Form } from "react-router";
@@ -10,6 +10,8 @@ import Label from "../Label";
 import CampoTexto from "../CampoTexto";
 import Fieldset from "../Fieldset";
 import { SelectGroup, SelectOption } from "../Select";
+import { useAppContext } from "../../context/AppContext";
+import { ITransactions } from "../../Types";
 
 export const Container = styled(CartaoCorpo)`
   padding: var(--padding-l) var(--padding-m);
@@ -37,43 +39,42 @@ export const ListaMovimentacoes = styled.ul`
   -ms-overflow-style: none;
 `;
 
-const transactions = [
-  {
-    id: 1,
-    name: "Compra de supermercado",
-    amount: 150,
-    type: "despesa",
-    category: "Alimentação",
-    date: "2024-10-10",
-  },
-  {
-    id: 2,
-    name: "Pagamento de aluguel",
-    amount: 1000,
-    type: "despesa",
-    category: "Moradia",
-    date: "2024-10-05",
-  },
-  {
-    id: 3,
-    name: "Recebimento de salário",
-    amount: 3000,
-    type: "receita",
-    category: "Renda",
-    date: "2024-10-01",
-  },
-];
-
 const Transactions = () => {
   const modalRef = useRef<ModalHandle>(null);
 
-  const [newTransaction, setNewTransaction] = useState({
+  const { transactions, addTransaction } = useAppContext();
+
+  const [newTransaction, setNewTransaction] = useState<
+    Omit<ITransactions, "id">
+  >({
     name: "",
     amount: 0,
-    type: "",
+    type: "revenue",
     category: "",
     date: "",
   });
+
+  const handleChange = (
+    input: keyof typeof newTransaction,
+    value: string | number
+  ) => {
+    setNewTransaction((prev) => ({ ...prev, [input]: value }));
+  };
+
+  const handleAddTransaction = async () => {
+    try {
+      await addTransaction(newTransaction);
+      setNewTransaction({
+        name: "",
+        amount: 0,
+        type: "revenue",
+        category: "",
+        date: "",
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   return (
     <Cartao>
@@ -90,90 +91,78 @@ const Transactions = () => {
             />
           ))}
         </ListaMovimentacoes>
-        <Botao $variante="neutro" onClick={() => modalRef.current?.open()}>
+        <Button $variante="neutro" onClick={() => modalRef.current?.open()}>
           <MoneyIcon />
           Adicionar transação
-        </Botao>
+        </Button>
         <Modal
           ref={modalRef}
           onOutsideClick
           title="Adicionar transação"
           icon={<MoneyIcon />}
-          handleClick={() => alert("Transação adicionada!")}
+          handleClick={handleAddTransaction}
         >
           <Form>
             <Fieldset>
-              <Label htmlFor="nomeTransacao">Nome da transação</Label>
+              <Label htmlFor="nameTransaction">Nome da transação</Label>
               <CampoTexto
                 type="text"
-                id="nomeTransacao"
+                id="nameTransaction"
                 placeholder="Ex: Compra na padaria"
                 value={newTransaction.name}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setNewTransaction({ ...newTransaction, name: e.target.value })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange("name", e.target.value);
+                }}
               />
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="valor">Valor</Label>
+              <Label htmlFor="value">Valor</Label>
               <CampoTexto
                 type="number"
-                id="valor"
+                id="value"
                 placeholder="10"
                 value={newTransaction.amount}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setNewTransaction({
-                    ...newTransaction,
-                    amount: parseFloat(e.target.value),
-                  })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange("amount", e.target.value);
+                }}
               />
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="tipo">Tipo</Label>
+              <Label htmlFor="type">Tipo</Label>
               <SelectGroup
-                id="tipo"
+                id="type"
                 value={newTransaction.type}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-                  setNewTransaction({
-                    ...newTransaction,
-                    type: e.target.value,
-                  })
-                }
+                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => {
+                  handleChange("type", e.target.value);
+                }}
               >
                 <SelectOption value="">Selecione o tipo</SelectOption>
-                <SelectOption value="receita">Receita</SelectOption>
-                <SelectOption value="despesa">Despesa</SelectOption>
+                <SelectOption value="revenue">Receita</SelectOption>
+                <SelectOption value="expense">Despesa</SelectOption>
               </SelectGroup>
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="valor">Data</Label>
+              <Label htmlFor="date">Data</Label>
               <CampoTexto
                 type="date"
-                id="valor"
+                id="date"
                 placeholder="dd/mm/aaaa"
                 value={newTransaction.date}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setNewTransaction({
-                    ...newTransaction,
-                    date: e.target.value,
-                  })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange("date", e.target.value);
+                }}
               />
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="categoria">Categoria</Label>
+              <Label htmlFor="category">Categoria</Label>
               <CampoTexto
                 type="text"
-                id="categoria"
+                id="category"
                 placeholder="Alimentação"
                 value={newTransaction.category}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-                  setNewTransaction({
-                    ...newTransaction,
-                    category: e.target.value,
-                  })
-                }
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+                  handleChange("category", e.target.value);
+                }}
               />
             </Fieldset>
           </Form>

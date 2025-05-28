@@ -22,6 +22,6 @@ export const getTransactions = async (): Promise<ITransactions[]> => {
 }
 
 export const createTransactions = async (transactions: Omit<ITransactions, "id">): Promise<ITransactions> => {
-  const { data } = await api.post<ITransactions>("/Transactionss", transactions);
+  const { data } = await api.post<ITransactions>("/transactions", transactions);
   return data;
 }

@@ -3,13 +3,13 @@ import BarraLateral from "../../componentes/BarraLateral";
 import BarraPesquisa from "../../componentes/BarraPesquisa";
 import OrcamentoDiario from "../../componentes/OrcamentoDiario";
 import UserGreeting from "../../componentes/UserGreeting";
-import Transacoes from "../../componentes/Transacoes";
 import {
   Container,
   Movimentacoes,
   Orcamento,
   TransacoesWrapper,
 } from "./style";
+import Transactions from "../../componentes/Transactions";
 
 function Home() {
   return (
@@ -24,7 +24,7 @@ function Home() {
         <BalancoFinanceiro />
       </Movimentacoes>
       <TransacoesWrapper>
-        <Transacoes />
+        <Transactions />
       </TransacoesWrapper>
     </Container>
   );
