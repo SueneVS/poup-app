@@ -18,9 +18,9 @@ interface TitleTransactionProps {
 
 export const TitleTransaction = styled.div<TitleTransactionProps>`
   color: ${(props) =>
-    props.$type === "receita"
-      ? "var(--cor-secundaria-receita)"
-      : "var(--cor-secundaria-despesa)"};
+    props.$type === "revenue"
+      ? "var(--cor-secundaria-revenue)"
+      : "var(--cor-secundaria-expense)"};
   display: flex;
   flex-direction: column;
   align-items: start;
