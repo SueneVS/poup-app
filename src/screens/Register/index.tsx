@@ -17,7 +17,7 @@ import Button from "../../componentes/Button/index.js";
 import { useAppContext } from "../../context/AppContext.js";
 
 const Register = () => {
-  const [form, setForm] = useState<Omit<IUser, "id">>({
+  const [form, setForm] = useState<Omit<IUser, "id" | "dailyBudget">>({
     name: "",
     income: 0,
   });

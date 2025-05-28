@@ -11,8 +11,16 @@ export const getUser = async (): Promise<IUser[]> => {
   return data;
 }
 
-export const createUser = async (user: Omit<IUser, "id">): Promise<IUser> => {
-  const { data } = await api.post<IUser>("/users", user);
+export const createUser = async (user: Omit<IUser, "id" | "dailyBudget">): Promise<IUser> => {
+  const userDailyBudget = {
+    ...user, dailyBudget: user.income / 30,
+  };
+  const { data } = await api.post<IUser>("/users", userDailyBudget);
+  return data;
+}
+
+export const updateUser = async (id: string, datas: IUser): Promise<IUser> => {
+  const { data } = await api.patch(`/users/${id}`, datas);
   return data;
 }
 

@@ -1,42 +1,4 @@
 {
-  "users": [
-    {
-      "id": "1739",
-      "name": "Suene",
-      "income": "30"
-    },
-    {
-      "id": "a29d",
-      "name": "",
-      "income": 0
-    },
-    {
-      "id": "19a8",
-      "name": "",
-      "income": 0
-    },
-    {
-      "id": "a266",
-      "name": "",
-      "income": 0
-    }
-  ],
-  "transactions": [
-    {
-      "id": "632a",
-      "name": "Livro",
-      "amount": "70",
-      "type": "despesa",
-      "category": "Estudos",
-      "date": "2025-05-27"
-    },
-    {
-      "id": "bcb3",
-      "name": "Pix",
-      "amount": "100",
-      "type": "revenue",
-      "category": "Pagamentos",
-      "date": "2025-05-27"
-    }
-  ]
+  "users": [],
+  "transactions": []
 }
