@@ -7,6 +7,7 @@ export interface IUser {
 
 export interface ITransactions {
   id: string;
+  userId: string;
   name: string;
   amount: number;
   type: "revenue" | "expense";

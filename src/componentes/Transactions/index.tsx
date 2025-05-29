@@ -45,7 +45,7 @@ const Transactions = () => {
   const { transactions, addTransaction } = useAppContext();
 
   const [newTransaction, setNewTransaction] = useState<
-    Omit<ITransactions, "id">
+    Omit<ITransactions, "id" | "userId">
   >({
     name: "",
     amount: 0,
@@ -123,7 +123,7 @@ const Transactions = () => {
                 placeholder="10"
                 value={newTransaction.amount}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-                  handleChange("amount", e.target.value);
+                  handleChange("amount", parseFloat(e.target.value));
                 }}
               />
             </Fieldset>
