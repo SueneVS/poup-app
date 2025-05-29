@@ -1,6 +1,6 @@
 # 💰 PoupApp
 
-> Este projeto está sendo desenvolvido durante o curso [**React com TypeScript na prática: produtividade e qualidade de código**](https://cursos.alura.com.br/formacao-react-ts), da plataforma [Alura](https://www.alura.com.br/). O projeto está sendo realizado como parte do desenvolvimento das habilidades técnicas, no **estágio em desenvolvimento fullstack da Empresa DB**.
+> Este projeto foi desenvolvido durante o curso [**React com TypeScript na prática: produtividade e qualidade de código**](https://cursos.alura.com.br/formacao-react-ts), da plataforma [Alura](https://www.alura.com.br/). O projeto foi realizado como parte do desenvolvimento das habilidades técnicas, no **estágio em desenvolvimento fullstack da Empresa DB**.
 
 O PoupApp é uma plataforma de gerenciamento financeiro voltada para ajudar usuários a organizar suas finanças. Focado na simplicidade, o PoupApp permite que os usuários acompanhem seus gastos, definam metas financeiras e visualizem seu progresso através de gráficos dinâmicos.
 
@@ -20,7 +20,7 @@ O PoupApp oferece as seguintes funcionalidades:
 
 ## ✔️ Técnicas e tecnologias utilizadas
 
-O projeto está sendo desenvolvido utilizando as seguintes tecnologias:
+O projeto foi desenvolvido utilizando as seguintes tecnologias:
 
 - `Typescript` - Linguagem que adiciona tipagem estática ao JavaScript.
 - `React.js` - Biblioteca para construção de interfaces dinâmicas.
@@ -50,6 +50,7 @@ Para rodar o projeto em sua máquina local, siga estes passos:
 4. Para iniciar o servidor de desenvolvimento, utilize o comando:
 
    ```bash
+   npm run server
    npm run dev
    ```
 
