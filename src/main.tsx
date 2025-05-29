@@ -2,13 +2,14 @@ import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import Home from "./screens/Home";
-import Cadastro from "./screens/Cadastro";
 import GlobalStyle from "./GlobalStyle";
+import Register from "./screens/Register";
+import AppProvider from "./context/AppContext";
 
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Cadastro />,
+    element: <Register />,
   },
   {
     path: "/home",
@@ -18,7 +19,9 @@ const router = createBrowserRouter([
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <GlobalStyle />
-    <RouterProvider router={router} />
+    <AppProvider>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </AppProvider>
   </StrictMode>
 );

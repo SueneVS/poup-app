@@ -1,30 +1,30 @@
-import BalancoFinanceiro from "../../componentes/BalancoFinanceiro";
 import BarraLateral from "../../componentes/BarraLateral";
 import BarraPesquisa from "../../componentes/BarraPesquisa";
-import OrcamentoDiario from "../../componentes/OrcamentoDiario";
-import SaudacaoUsuario from "../../componentes/SaudacaoUsuario";
-import Transacoes from "../../componentes/Transacoes";
+import OrcamentoDiario from "../../componentes/DailyBudget";
+import UserGreeting from "../../componentes/UserGreeting";
 import {
   Container,
   Movimentacoes,
   Orcamento,
   TransacoesWrapper,
 } from "./style";
+import Transactions from "../../componentes/Transactions";
+import FinancialSummary from "../../componentes/FinancialSummary";
 
 function Home() {
   return (
     <Container>
       <BarraLateral />
       <BarraPesquisa />
-      <SaudacaoUsuario />
+      <UserGreeting />
       <Orcamento>
         <OrcamentoDiario />
       </Orcamento>
       <Movimentacoes>
-        <BalancoFinanceiro />
+        <FinancialSummary />
       </Movimentacoes>
       <TransacoesWrapper>
-        <Transacoes />
+        <Transactions />
       </TransacoesWrapper>
     </Container>
   );

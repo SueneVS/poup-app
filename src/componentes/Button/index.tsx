@@ -18,11 +18,11 @@ const varianteCores = {
   },
 };
 
-interface BotaoProps {
+interface ButtonProps {
   $variante: keyof typeof varianteCores;
 }
 
-const Botao = styled.button<BotaoProps>`
+const Button = styled.button<ButtonProps>`
   display: flex;
   align-items: center;
   gap: var(--gap-xs);
@@ -35,4 +35,4 @@ const Botao = styled.button<BotaoProps>`
   font-size: var(--fonte-md);
 `;
 
-export default Botao;
+export default Button;

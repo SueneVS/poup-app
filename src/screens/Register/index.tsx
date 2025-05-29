@@ -9,19 +9,30 @@ import {
 } from "./style.js";
 import ilustracao from "../../assets/images/ilustracao-cadastro.png";
 import { Form, useNavigate } from "react-router";
-import Botao from "../../componentes/Botao/index.js";
-import CampoTexto from "../../componentes/CampoTexto/index.js";
 import Fieldset from "../../componentes/Fieldset/index.js";
 import Label from "../../componentes/Label/index.js";
+import { IUser } from "../../Types/index.js";
+import TextInput from "../../componentes/CampoTexto/index.js";
+import Button from "../../componentes/Button/index.js";
+import { useAppContext } from "../../context/AppContext.js";
 
-const Cadastro = () => {
-  const [nome, setNome] = useState("");
-  const [renda, setRenda] = useState("");
+const Register = () => {
+  const [form, setForm] = useState<Omit<IUser, "id" | "dailyBudget">>({
+    name: "",
+    income: 0,
+  });
+
+  const handleTextInputChange = (input: "name" | "income", value: string) => {
+    setForm((prev) => ({ ...prev, [input]: value }));
+  };
 
   const navigate = useNavigate();
 
-  const aoSubmeterFormulario = (evento: React.FormEvent) => {
-    evento.preventDefault();
+  const { addUser } = useAppContext();
+
+  const handleFormSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    addUser(form);
     navigate("/home");
   };
 
@@ -37,27 +48,29 @@ const Cadastro = () => {
           </Description>
           <Form>
             <Fieldset>
-              <Label htmlFor="nome">Nome</Label>
-              <CampoTexto
+              <Label htmlFor="name">Nome</Label>
+              <TextInput
                 type="text"
-                name="nome"
-                value={nome}
-                onChange={(e) => setNome(e.target.value)}
+                name="name"
+                value={form.name}
+                onChange={(e) => handleTextInputChange("name", e.target.value)}
               />
             </Fieldset>
             <Fieldset>
-              <Label htmlFor="renda">Renda mensal total</Label>
-              <CampoTexto
+              <Label htmlFor="income">Renda mensal total</Label>
+              <TextInput
                 type="text"
-                name="renda"
-                value={renda}
-                onChange={(e) => setRenda(e.target.value)}
+                name="income"
+                value={form.income}
+                onChange={(e) =>
+                  handleTextInputChange("income", e.target.value)
+                }
               />
             </Fieldset>
           </Form>
-          <Botao $variante="primario" onClick={aoSubmeterFormulario}>
+          <Button $variante="primario" onClick={handleFormSubmit}>
             Ir para o app
-          </Botao>
+          </Button>
         </Container>
         <Illustration
           src={ilustracao}
@@ -68,4 +81,4 @@ const Cadastro = () => {
   );
 };
 
-export default Cadastro;
+export default Register;
