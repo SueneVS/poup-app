@@ -19,7 +19,7 @@ export const createUser = async (user: Omit<IUser, "id" | "dailyBudget">): Promi
   return data;
 }
 
-export const updateUser = async (id: string, datas: IUser): Promise<IUser> => {
+export const updateUser = async (id: string, datas: Partial<IUser>): Promise<IUser> => {
   const { data } = await api.patch(`/users/${id}`, datas);
   return data;
 }
@@ -29,7 +29,31 @@ export const getTransactions = async (): Promise<ITransactions[]> => {
   return data;
 }
 
-export const createTransactions = async (transactions: Omit<ITransactions, "id">): Promise<ITransactions> => {
-  const { data } = await api.post<ITransactions>("/transactions", transactions);
-  return data;
+export const createTransactions = async (
+  transactions: Omit<ITransactions, "id" | "userId">,
+  user: Omit<IUser, "name">
+): Promise<{ transaction: ITransactions, newDailyBudget: number }> => {
+  const transactionById = {
+    ...transactions, userId: user.id,
+  };
+  const { data } = await api.post<ITransactions>("/transactions", transactionById);
+
+  const allTransactions = await getTransactions();
+  const balance = calculateBalance(allTransactions);
+  const baseDailyBudget = user.income / 30;
+  const balanceAdjustment = balance / 30;
+  const newDailyBudget = baseDailyBudget + balanceAdjustment;
+  await updateUser(user.id, {
+    dailyBudget: newDailyBudget
+  }).catch(error => console.error(error));
+
+  return { transaction: data, newDailyBudget };
+}
+
+const calculateBalance = (transactions: ITransactions[]): number => {
+  return transactions.reduce((total, transaction) => {
+    return transaction.type === "revenue"
+      ? total + transaction.amount
+      : total - transaction.amount;
+  }, 0);
 }

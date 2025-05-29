@@ -1,4 +1,3 @@
-import BalancoFinanceiro from "../../componentes/BalancoFinanceiro";
 import BarraLateral from "../../componentes/BarraLateral";
 import BarraPesquisa from "../../componentes/BarraPesquisa";
 import OrcamentoDiario from "../../componentes/DailyBudget";
@@ -10,6 +9,7 @@ import {
   TransacoesWrapper,
 } from "./style";
 import Transactions from "../../componentes/Transactions";
+import FinancialSummary from "../../componentes/FinancialSummary";
 
 function Home() {
   return (
@@ -21,7 +21,7 @@ function Home() {
         <OrcamentoDiario />
       </Orcamento>
       <Movimentacoes>
-        <BalancoFinanceiro />
+        <FinancialSummary />
       </Movimentacoes>
       <TransacoesWrapper>
         <Transactions />

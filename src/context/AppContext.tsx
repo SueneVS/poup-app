@@ -17,7 +17,9 @@ interface AppContextType {
   user: IUser | null;
   addUser: (user: Omit<IUser, "id" | "dailyBudget">) => Promise<void>;
   transactions: ITransactions[];
-  addTransaction: (newTransaction: Omit<ITransactions, "id">) => Promise<void>;
+  addTransaction: (
+    newTransaction: Omit<ITransactions, "id" | "userId">
+  ) => Promise<void>;
 }
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -52,10 +54,21 @@ const AppProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
-  const addTransaction = async (newTransaction: Omit<ITransactions, "id">) => {
+  const addTransaction = async (
+    newTransaction: Omit<ITransactions, "id" | "userId">
+  ) => {
     try {
-      const transactionCreated = await createTransactions(newTransaction);
-      setTransactions((prev) => [...prev, transactionCreated]);
+      if (!user) {
+        throw new Error("Usuário não encontrado");
+      }
+      const { transaction, newDailyBudget } = await createTransactions(
+        newTransaction,
+        user
+      );
+      setTransactions((prev) => [...prev, transaction]);
+      setUser((prev) =>
+        prev ? { ...prev, dailyBudget: newDailyBudget } : null
+      );
     } catch (err) {
       console.log(err);
     }
